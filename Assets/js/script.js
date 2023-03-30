@@ -5,7 +5,7 @@ var windspeed;
 var humidity;
 var icon;
 var currentDate;
-var cityURL = `http://api.openweathermap.org/geo/1.0/direct?q=cityName&limit=5&appid=${APIKey}`;
+var cityURL = `https://api.openweathermap.org/geo/1.0/direct?q=cityName&limit=5&appid=${APIKey}`;
 var weatherURL = `https://api.openweathermap.org/data/2.5/weather?locationData&appid=${APIKey}`;
 var forecastURL = `https://api.openweathermap.org/data/2.5/forecast?locationData&appid=${APIKey}`;
 var searchDiv = document.querySelector(".search-container");
