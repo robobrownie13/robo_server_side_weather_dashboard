@@ -1,12 +1,40 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-<body>
-    
-</body>
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Weather Dashboard</title>
+    <link rel="stylesheet" href="./Assets/css/style.css" />
+  </head>
+  <body>
+    <header>
+      <h1>Weather Dashboard</h1>
+    </header>
+    <main>
+      <div class="search-container">
+        <input type="text" class="city" placeholder="Enter City Name" />
+        <button type="submit" class="search-city-button">Search City</button>
+        <button class="search-button hide" type="submit">
+          Search Weather Info
+        </button>
+        <!-- <button class="Atlanta">Atlanta</button>
+        <button class="Chicago">Chicago</button>
+        <button class="Houston">Houston</button>
+        <button class="Miami">Miami</button>
+        <button class="New-York">New York</button>
+        <button class="San-Francisco">San Francisco</button>
+        <button class="Washington-DC">Washington DC</button> -->
+      </div>
+      <div class="weather-display-main hide"></div>
+      <div class="five-day-forecast hide">
+        <!-- <div class="day1"></div>
+        <div class="day2"></div>
+        <div class="day3"></div>
+        <div class="day4"></div>
+        <div class="day5"></div> -->
+      </div>
+      <script src="./Assets/js/script.js"></script>
+    </main>
+  </body>
 </html>
