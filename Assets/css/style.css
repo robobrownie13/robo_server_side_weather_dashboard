@@ -44,3 +44,16 @@ form {
   display: flex;
   flex-direction: column;
 }
+.weather-display-main {
+  border: blueviolet solid 5px;
+  width: 60vw;
+  height: 40vh;
+  background-color: white;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+#weather-info {
+  list-style: none;
+}

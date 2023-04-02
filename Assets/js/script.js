@@ -6,8 +6,8 @@ var humidity;
 var icon;
 var currentDate;
 var cityURL = `https://api.openweathermap.org/geo/1.0/direct?q=cityName&limit=5&appid=${APIKey}`;
-var weatherURL = `https://api.openweathermap.org/data/2.5/weather?locationData&appid=${APIKey}`;
-var forecastURL = `https://api.openweathermap.org/data/2.5/forecast?locationData&appid=${APIKey}`;
+var weatherURL = `https://api.openweathermap.org/data/2.5/weather?locationData&units=imperial&appid=${APIKey}`;
+var forecastURL = `https://api.openweathermap.org/data/2.5/forecast?locationData&units=imperial&appid=${APIKey}`;
 var searchDiv = document.querySelector(".search-container");
 var searchCity = document.querySelector(".search-city-button");
 var search = document.querySelector(".search-button");
@@ -16,7 +16,7 @@ var search = document.querySelector(".search-button");
 WHEN I search for a city
 THEN I am presented with current and future conditions 
 for that city and that city is added to the search */
-
+//localstorage.get
 searchCity.addEventListener("click", retrieveData);
 function retrieveData() {
   if (!city.value) {
@@ -58,7 +58,7 @@ function displayCityList(cityOptions) {
   search.style.display = "block";
   newForm.addEventListener("submit", (e) => {
     e.preventDefault();
-    retrieveWeatherData(select);
+    retrieveWeatherData(select); //localStorage
     retrieveForecastData(select);
   });
 }
@@ -73,13 +73,24 @@ function retrieveWeatherData(select) {
 }
 
 function displayWeather(weatherInfo) {
-  console.log(
-    weatherInfo.name,
-    weatherInfo.main.temp,
-    weatherInfo.main.humidity,
-    weatherInfo.wind.speed,
-    weatherInfo.weather[0].icon
-  );
+  var weatherDisplay = document.querySelector(".weather-display-main");
+  weatherDisplay.style.display = "flex";
+  document.querySelector(
+    "#weather-city"
+  ).innerHTML = `${weatherInfo.name} <br> <em>${weatherInfo.main.temp}°F<em>`;
+  document
+    .querySelector("#weather-icon-image")
+    .setAttribute(
+      "src",
+      `http://openweathermap.org/img/w/${weatherInfo.weather[0].icon}.png`
+    );
+
+  document.querySelector(
+    "#weather-humidity"
+  ).innerText = `${weatherInfo.main.humidity}%`;
+  document.querySelector(
+    "#weather-wind-speed"
+  ).innerText = `${weatherInfo.wind.speed} mph`;
 }
 
 function retrieveForecastData(select) {
@@ -92,12 +103,24 @@ function retrieveForecastData(select) {
 }
 
 function displayForecast(forecastInfo) {
+  // "2023-03-31 18:00:00"
+  var forecastArr = [];
+  for (let i = 0; i < forecastInfo.list.length; i++) {
+    var forecastTime = parseInt(
+      forecastInfo.list[i].dt_txt.split(" ")[1].slice(0, 3)
+    );
+    if (forecastTime === 12) {
+      forecastArr.push(forecastInfo.list[i]);
+    }
+  }
+  //loop through forecastArr and render
+  console.log(forecastArr);
   console.log(
     forecastInfo.city.name,
-    forecastInfo.list[3].main.temp,
-    forecastInfo.list[3].main.humidity,
-    forecastInfo.list[3].wind.speed,
-    forecastInfo.list[3].weather[0].icon
+    forecastArr[0].main.temp,
+    forecastArr[0].main.humidity,
+    forecastArr[0].wind.speed,
+    forecastArr[0].weather[0].icon
   );
 }
 
