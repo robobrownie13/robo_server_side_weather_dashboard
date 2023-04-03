@@ -87,10 +87,10 @@ function displayWeather(weatherInfo) {
 
   document.querySelector(
     "#weather-humidity"
-  ).innerText = `${weatherInfo.main.humidity}%`;
+  ).innerText = `Humdity: ${weatherInfo.main.humidity}%`;
   document.querySelector(
     "#weather-wind-speed"
-  ).innerText = `${weatherInfo.wind.speed} mph`;
+  ).innerText = `Wind Speed: ${weatherInfo.wind.speed} mph`;
 }
 
 function retrieveForecastData(select) {
@@ -113,15 +113,24 @@ function displayForecast(forecastInfo) {
       forecastArr.push(forecastInfo.list[i]);
     }
   }
+  var forecastDisplay = document.querySelector(".five-day-forecast");
+  forecastDisplay.style.display = "flex";
   //loop through forecastArr and render
-  console.log(forecastArr);
-  console.log(
-    forecastInfo.city.name,
-    forecastArr[0].main.temp,
-    forecastArr[0].main.humidity,
-    forecastArr[0].wind.speed,
-    forecastArr[0].weather[0].icon
-  );
+  forecastArr.forEach((forecastIndex) => {
+    var forecastCard = document.createElement("div");
+    forecastCard.classList.add("forecast-card");
+    var forecastData = document.createElement("p");
+    forecastData.innerHTML = `${forecastIndex.dt_txt.slice(0, 10)}<br>
+    ${forecastIndex.main.temp}
+   <img src ="http://openweathermap.org/img/w/${
+     forecastIndex.weather[0].icon
+   }.png"><br>
+    Humidity: ${forecastIndex.main.humidity}<br>
+    Wind Speed: ${forecastIndex.wind.speed}`;
+    forecastCard.appendChild(forecastData);
+    console.log(forecastIndex);
+    forecastDisplay.appendChild(forecastCard);
+  });
 }
 
 // WHEN I view current weather conditions for that city

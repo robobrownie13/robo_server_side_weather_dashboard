@@ -20,9 +20,11 @@ header {
 }
 
 main {
-  width: 70vw;
+  width: 80vw;
   height: 70vh;
+  overflow: auto;
   display: flex;
+  flex-flow: row wrap;
   justify-content: center;
   align-items: center;
 }
@@ -31,8 +33,8 @@ main {
 }
 .search-container {
   border: blueviolet solid 5px;
-  width: 60vw;
-  height: 40vh;
+  width: 50vw;
+  height: 30vh;
   background-color: white;
   display: flex;
   flex-direction: column;
@@ -44,16 +46,35 @@ form {
   display: flex;
   flex-direction: column;
 }
-.weather-display-main {
+.weather-display-main,
+.forecast-card {
   border: blueviolet solid 5px;
-  width: 60vw;
-  height: 40vh;
   background-color: white;
   justify-content: center;
   align-items: center;
   flex-direction: column;
 }
 
+.weather-display-main {
+  width: 50vw;
+  height: 40vh;
+}
+
 #weather-info {
   list-style: none;
+}
+
+.five-day-forecast {
+  justify-content: center;
+  flex-flow: row wrap;
+  width: 80vw;
+  height: 50vh;
+}
+
+.forecast-card {
+  width: 30vw;
+  height: 30vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
