@@ -1,22 +1,36 @@
 var APIKey = "347aa0d395e0253f2d8715eedad684cc";
 var city = document.querySelector(".city");
-var temp;
-var windspeed;
-var humidity;
-var icon;
-var currentDate;
 var cityURL = `https://api.openweathermap.org/geo/1.0/direct?q=cityName&limit=5&appid=${APIKey}`;
 var weatherURL = `https://api.openweathermap.org/data/2.5/weather?locationData&units=imperial&appid=${APIKey}`;
 var forecastURL = `https://api.openweathermap.org/data/2.5/forecast?locationData&units=imperial&appid=${APIKey}`;
 var searchDiv = document.querySelector(".search-container");
+var quickDisplay = document.querySelector(".quick-display");
 var searchCity = document.querySelector(".search-city-button");
 var search = document.querySelector(".search-button");
-
+var forecastDisplay = document.querySelector(".five-day-forecast");
+var searchHistory;
 /*TODO: GIVEN a weather dashboard with form inputs
 WHEN I search for a city
 THEN I am presented with current and future conditions 
 for that city and that city is added to the search */
-//localstorage.get
+forecastDisplay.innerHTML = "";
+if (localStorage.getItem("searchHistory")) {
+  searchHistory = JSON.parse(localStorage.getItem("searchHistory"));
+} else {
+  searchHistory = [];
+}
+
+searchHistory.forEach((historyIndex) => {
+  var quickSearch = document.createElement("button");
+  quickSearch.innerText = historyIndex.name;
+  quickSearch.addEventListener("click", (e) => {
+    e.preventDefault();
+    forecastDisplay.innerHTML = "";
+    retrieveWeatherData(historyIndex);
+    retrieveForecastData(historyIndex);
+  });
+  quickDisplay.appendChild(quickSearch);
+});
 searchCity.addEventListener("click", retrieveData);
 function retrieveData() {
   if (!city.value) {
@@ -25,6 +39,7 @@ function retrieveData() {
   fetch(cityURL.replace("cityName", city.value))
     .then((response) => response.json())
     .then((data) => {
+      console.log(data);
       displayCityList(data);
     });
 }
@@ -56,18 +71,26 @@ function displayCityList(cityOptions) {
   }
   newForm.appendChild(search);
   search.style.display = "block";
+
   newForm.addEventListener("submit", (e) => {
+    var cityButton = e.target.children[1].children[0].textContent.split(",")[0];
     e.preventDefault();
-    retrieveWeatherData(select); //localStorage
+    forecastDisplay.innerHTML = "";
+    searchHistory.push({
+      name: cityButton,
+      value: select.value,
+    });
+    localStorage.setItem("searchHistory", JSON.stringify(searchHistory));
+    retrieveWeatherData(select);
     retrieveForecastData(select);
   });
 }
 
 function retrieveWeatherData(select) {
+  console.log(select.value);
   fetch(weatherURL.replace("locationData", select.value))
     .then((response) => response.json())
     .then((data) => {
-      console.log(data);
       displayWeather(data);
     });
 }
@@ -113,35 +136,22 @@ function displayForecast(forecastInfo) {
       forecastArr.push(forecastInfo.list[i]);
     }
   }
-  var forecastDisplay = document.querySelector(".five-day-forecast");
+
   forecastDisplay.style.display = "flex";
   //loop through forecastArr and render
   forecastArr.forEach((forecastIndex) => {
     var forecastCard = document.createElement("div");
     forecastCard.classList.add("forecast-card");
+    var dateTitle = document.createElement("h4");
+    dateTitle.innerText = `${forecastIndex.dt_txt.slice(0, 10)}`;
     var forecastData = document.createElement("p");
-    forecastData.innerHTML = `${forecastIndex.dt_txt.slice(0, 10)}<br>
-    ${forecastIndex.main.temp}
-   <img src ="http://openweathermap.org/img/w/${
-     forecastIndex.weather[0].icon
-   }.png"><br>
-    Humidity: ${forecastIndex.main.humidity}<br>
-    Wind Speed: ${forecastIndex.wind.speed}`;
+    forecastData.innerHTML = `${forecastIndex.main.temp}°F
+   <img src ="http://openweathermap.org/img/w/${forecastIndex.weather[0].icon}.png"><br>
+    Humidity: ${forecastIndex.main.humidity}%<br>
+    Wind Speed: ${forecastIndex.wind.speed} mph`;
+    forecastCard.appendChild(dateTitle);
     forecastCard.appendChild(forecastData);
     console.log(forecastIndex);
     forecastDisplay.appendChild(forecastCard);
   });
 }
-
-// WHEN I view current weather conditions for that city
-// THEN I am presented with the city name, the date,
-// an icon representation of weather conditions, the temperature, the humidity, and the the wind speed
-
-// WHEN I view future weather conditions for that city
-// THEN I am presented with a 5-day forecast that displays
-// the date, an icon representation of weather conditions,
-// the temperature, the wind speed, and the humidity
-
-// WHEN I click on a city in the search history
-// THEN I am again presented with current and future conditions
-// for that city

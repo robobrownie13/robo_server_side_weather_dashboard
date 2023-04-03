@@ -33,15 +33,21 @@ main {
 }
 .search-container {
   border: blueviolet solid 5px;
-  width: 50vw;
+  width: 60vw;
   height: 30vh;
   background-color: white;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  margin: 10px;
 }
-
+.quick-display {
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: center;
+  width: 100%;
+}
 form {
   display: flex;
   flex-direction: column;
@@ -53,10 +59,11 @@ form {
   justify-content: center;
   align-items: center;
   flex-direction: column;
+  margin: 10px;
 }
 
 .weather-display-main {
-  width: 50vw;
+  width: 60vw;
   height: 40vh;
 }
 
