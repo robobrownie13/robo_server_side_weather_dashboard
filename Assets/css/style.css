@@ -1,11 +1,12 @@
+@import url("https://fonts.googleapis.com/css2?family=Raleway:wght@500&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Noto+Sans&display=swap");
 * {
   margin: 0;
   padding: 0;
-  font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
 }
 
 body {
-  background-color: rgb(6, 6, 69);
+  background-color: #050570;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -17,6 +18,7 @@ header {
   padding-top: 10px;
   text-align: center;
   color: white;
+  font-family: "Raleway", sans-serif;
 }
 
 main {
@@ -32,16 +34,38 @@ main {
   display: none;
 }
 .search-container {
-  border: blueviolet solid 5px;
+  border: #650e85 solid 5px;
+  border-radius: 5px;
+  color: white;
   width: 60vw;
-  height: 30vh;
-  background-color: white;
+  height: 40vh;
+  background-color: #4d0c74;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   margin: 10px;
+  margin-top: 10px;
 }
+
+button {
+  background-color: #102abf;
+  border: none;
+  border-radius: 3px;
+  color: white;
+  text-align: center;
+  padding: 4px;
+  margin: 4px 2px;
+  cursor: pointer;
+}
+button:hover {
+  background-color: white; /* Green */
+  color: #102abf;
+}
+button:active {
+  border: solid 3px #000;
+}
+
 .quick-display {
   margin: 10px;
   display: flex;
@@ -49,14 +73,20 @@ main {
   justify-content: center;
   width: 100%;
 }
+
 form {
   display: flex;
   flex-direction: column;
+  font-family: "Raleway", sans-serif;
 }
+
 .weather-display-main,
 .forecast-card {
-  border: blueviolet solid 5px;
-  background-color: white;
+  border: #650e85 solid 5px;
+  border-radius: 5px;
+  background-color: #4d0c74;
+  color: white;
+  font-family: "Noto Sans", sans-serif;
   justify-content: center;
   align-items: center;
   flex-direction: column;

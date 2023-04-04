@@ -9,17 +9,14 @@ var searchCity = document.querySelector(".search-city-button");
 var search = document.querySelector(".search-button");
 var forecastDisplay = document.querySelector(".five-day-forecast");
 var searchHistory;
-/*TODO: GIVEN a weather dashboard with form inputs
-WHEN I search for a city
-THEN I am presented with current and future conditions 
-for that city and that city is added to the search */
+//Retrieve previous search history if they are available in storage
 forecastDisplay.innerHTML = "";
 if (localStorage.getItem("searchHistory")) {
   searchHistory = JSON.parse(localStorage.getItem("searchHistory"));
 } else {
   searchHistory = [];
 }
-
+//Create a button that activates quick search
 searchHistory.forEach((historyIndex) => {
   var quickSearch = document.createElement("button");
   quickSearch.innerText = historyIndex.name;
@@ -31,6 +28,8 @@ searchHistory.forEach((historyIndex) => {
   });
   quickDisplay.appendChild(quickSearch);
 });
+
+//Main search button
 searchCity.addEventListener("click", retrieveData);
 function retrieveData() {
   if (!city.value) {
@@ -43,6 +42,7 @@ function retrieveData() {
       displayCityList(data);
     });
 }
+//Creates a city dropdown for user and saves option in local storage
 function displayCityList(cityOptions) {
   var newForm = document.createElement("form");
   searchDiv.appendChild(newForm);
@@ -85,7 +85,7 @@ function displayCityList(cityOptions) {
     retrieveForecastData(select);
   });
 }
-
+//Fetch of actual weather data
 function retrieveWeatherData(select) {
   console.log(select.value);
   fetch(weatherURL.replace("locationData", select.value))
@@ -115,7 +115,7 @@ function displayWeather(weatherInfo) {
     "#weather-wind-speed"
   ).innerText = `Wind Speed: ${weatherInfo.wind.speed} mph`;
 }
-
+//Fetch for 5 day Forecast for every future date at 12 pm
 function retrieveForecastData(select) {
   fetch(forecastURL.replace("locationData", select.value))
     .then((response) => response.json())
