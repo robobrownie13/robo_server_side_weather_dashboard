@@ -43,6 +43,7 @@ main {
   margin: 10px;
 }
 .quick-display {
+  margin: 10px;
   display: flex;
   flex-flow: row wrap;
   justify-content: center;
