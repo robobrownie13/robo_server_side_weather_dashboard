@@ -14,5 +14,6 @@ With this project, the user first inputs a city name and is given the option of 
 
 ## Mock-up
 
+<img src="./Assets/weather-app-mock-up.gif">
 <br>
 Deployment Link:<a href="https://robobrownie13.github.io/robo_server_side_weather_dashboard/"> https://robobrownie13.github.io/robo_server_side_weather_dashboard/ </a>
